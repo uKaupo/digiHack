@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ohvriabi</title>
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
+    </link>
+    <link rel="stylesheet" href="./botUi-theme.css">
+    </link>
+
+    <style>
+        .app {
+            border: 1px solid red;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app" id="qa-app">
+        <bot-ui></bot-ui>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+    <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+
+    <script>
+        var botUi = new BotUI('qa-app');
+
+        botUi.message.add({
+            content: 'Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!'
+        }).then(function() { // wait till its shown
+            botUi.message.add({ // show next message
+                delay: 500,
+                content: 'Kas otsid nõu iseendale või kellelelgi teisele?'
+            }).then(() => {
+                return botUi.action.button({
+                    delay: 500,
+                    action: [{
+                        text: 'Iseendale',
+                        value: 'iseendale'
+                    }, {
+                        text: 'Kellelegi teisele',
+                        value: 'teisele'
+                    }]
+                }).then((res) => {
+                    if (res.value === "iseendale") {
+                        abiIseendale();
+                    } else {
+                        raagiBotiga();
+                    }
+                });
+
+            });
+        });
+
+        let raagiBotiga = async() => {
+            await botUi.message.add({
+                delay: 2000,
+                content: "Sa ."
+            });
+
+            let response1 = await botUi.message.add({
+                delay: 2000,
+                content: "Kirjuta oma mure."
+            })
+            await botUi.action.text({
+                delay: 100,
+                action: {
+                    placeholder: ''
+                }
+            })
+
+        }
+
+        let abiIseendale = async() => {
+            await botUi.message.add({
+                delay: 500,
+                content: "Olukorra selgitamiseks küsime teilt paar küsimust."
+            });
+
+            let response1 = await botUi.message.add({
+                delay: 500,
+                content: "Kas Sinu partner on teinud kunagi Sulle, Sinu lastele või koduloomadele haiget?"
+            }).then(() => {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'ei',
+                        value: 'ei'
+                    }]
+                })
+            })
+
+
+
+            let response22 = await botUi.message.add({
+                delay: 500,
+                content: "Kas juhtunud olukord põhjustas vigastusi?"
+            }).then(function() {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'Ei',
+                        value: 'ei'
+                    }]
+                })
+            })
+
+            let response2 = await botUi.message.add({
+                delay: 500,
+                content: "Kas vägivalda on juhtunud üle 2 korra viimase aasta jooksul?"
+            }).then(function() {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'Ei',
+                        value: 'ei'
+                    }]
+                })
+            })
+
+            let response3 = await botUi.message.add({
+                delay: 500,
+                content: "Kas Sinu partner kuritarvitab alkoholi või narkootikume?"
+            }).then(function() {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'Ei',
+                        value: 'ei'
+                    }]
+                })
+            })
+
+            await botUi.message.add({
+                delay: 500,
+                content: 'Sinu vastuste põhjal soovitame sul rääkida kriisiabitöötajaga.'
+            })
+            let response4 = await botUi.message.add({
+                delay: 500,
+                content: 'Kas ühendan?'
+            }).then(function() {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'ei',
+                        value: 'ei'
+                    }]
+                })
+            })
+            if (response4.value === "jah") {
+                minugaJuhtus();
+            } else {
+                await botUi.message.add({
+                    delay: 500,
+                    content: 'ok'
+                })
+            }
+        }
+    </script>
+
+</body>
+
+</html>
