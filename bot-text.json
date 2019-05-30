@@ -1,0 +1,120 @@
+{
+	"selgitus": "Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!",
+	"küsimus": "Kas otsid nõu iseendale või kellelelgi teisele?",
+	"vastused": [
+		{
+			"value": "iseendale",
+			"text": "Iseendale"
+		},
+		{
+			"value": "teisele",
+			"text": "Kellelegi teisele"
+		}
+	]
+}
+,
+{
+	"selgitus": "Olukorra selgitamiseks küsime teilt paar küsimust.",
+	"küsimus": "Kas Sinu partner on teinud kunagi Sulle, Sinu lastele või koduloomadele haiget?",
+	"vastused": [
+		{
+			"value": "jah",
+			"text": "Jah"
+		},
+		{
+			"value": "ei",
+			"text": "Ei"
+		}
+	]
+}
+,
+{
+	"küsimus": "Kas vägivalda on juhtunud üle 2 korra viimase aasta jooksul?",
+	"vastused": [
+		{
+			"value": "jah",
+			"text": "Jah"
+		},
+		{
+			"value": "ei",
+			"text": "Ei"
+		}
+	]
+}
+,
+{
+	"küsimus": "Kas juhtunud olukord on põhjustanud vigastusi?",
+	"vastused": [
+		{
+			"value": "jah",
+			"text": "Jah"
+		},
+		{
+			"value": "ei",
+			"text": "Ei"
+		}
+	]
+}
+,
+{
+	"küsimus": "Kas Sinu partner kuritarvitab alkoholi või narkootikume?",
+	"vastused": [
+		{
+			"value": "jah",
+			"text": "Jah"
+		},
+		{
+			"value": "ei",
+			"text": "Ei"
+		}
+	]
+}
+,
+{
+	"selgitus": "Sinu vastuste põhjal soovitame sul rääkida kriisiabitöötajaga.",
+	"küsimus": "Kas soovid teha telefonikõne või jätkata siin sõnumitega?",
+	"vastused": [
+		{
+			"value": "helistada",
+			"text": "Soovin helistada"
+		},
+		{
+			"value": "kirjutada",
+			"text": "Soovin kirjutada"
+		},
+		{
+			"value": "ei",
+			"text": "Ei soovi suhelda"
+		}
+	]
+}
+,
+{
+	"selgitus": "Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.",
+	"küsimus": "Milles sinu mure seisneb?",
+	"vastused": [
+		{
+			"value": "vastus",
+			"text": "Mees lõi mind eile õhtul"
+		}
+	]
+}
+,
+{
+	"küsimus": "Kas sellest on jälgi näha?",
+	"vastused": [
+		{
+			"value": "vastus",
+			"text": "Jah, sinikad"
+		}
+	]
+}
+,
+{
+	"selgitus": "Palun saada oma vigastusest pilt. Seda saad teha vajutades Salvesta juhtum nupule."
+}
+,
+{
+	"selgitus": "Siit saad vaadata su lähedal asuvaid asutusi, kust sa saad abi."
+	"link": "abiinfo"
+}

@@ -9,274 +9,62 @@
     <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
     </link>
     <link rel="stylesheet" href="./botUi-theme.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     </link>
-
-    <style>
-        .app {
-            border: 1px solid red;
-            max-width: 800px;
-        }
-    </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark blue-background">
+        <a class="navbar-brand white-text font-weight-bold" href="#">OHVRIABI</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
+        <div class="collapse navbar-collapse  text-right" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item white-text">
+                    <a href="#" class="nav-link m-2 menu-item nav-active white-text">Soovin nõu</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 menu-item white-text">Mul juhtus</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link m-2 menu-item white-text">Info</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <button id="btn-start-recording">Start Recording</button>
-    <button id="btn-stop-recording" disabled>Stop Recording</button>
+    <div class="jumbotron jumbotron-fluid blue-background">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-4 orange-text font-weight-bold">Oleme sinu jaoks alati olemas!</h1>
+                <p class="helista-meile-kohe-k">Helista meile kohe kui tunned, et vajad abi</p>
+                <a class="btn rectangle1" href="#" role="button"><span
+                        class="white-text font-size-13">KRIISITELEFON</span> <span class="orange-text font-size-32">116
+                        006</span></a>
+                <a class="btn rectangle2 white-text" href="#" role="button"><span class="font-size-13">OLEN OHUS!</span>
+                    <span class="font-size-30">112</span></a>
+            </div>
+        </div>
+    </div>
 
-    <hr>
-    <video id="video" controls autoplay playsinline></video>
-    <hr>
-    <div class="app" id="qa-app">
-        <bot-ui></bot-ui>
+    <div class="container">
+        <!-- <button id="btn-start-recording">Start Recording</button>
+        <button id="btn-stop-recording" disabled>Stop Recording</button>
+        <video id="video" controls autoplay playsinline></video> -->
+
+        <div class="app" id="qa-app">
+            <bot-ui></bot-ui>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
     <script src="https://unpkg.com/botui/build/botui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.3/RecordRTC.js"></script>
-
-    <script>
-        var video = document.querySelector('video');
-        toggleHideElementById("video");
-
-        function captureCamera(callback) {
-            toggleHideElementById("video");
-            navigator.mediaDevices.getUserMedia({
-                audio: true,
-                video: true
-            }).then(function(camera) {
-                callback(camera);
-            }).catch(function(error) {
-                alert('Unable to capture your camera. Please check console logs.');
-                console.error(error);
-            });
-        }
-
-        function stopRecordingCallback() {
-            video.src = video.srcObject = null;
-            video.muted = false;
-            video.volume = 1;
-            video.src = URL.createObjectURL(recorder.getBlob());
-
-            recorder.camera.stop();
-            recorder.destroy();
-            recorder = null;
-            toggleHideElementById("video");
-        }
-        var recorder; // globally accessible
-        document.getElementById('btn-start-recording').onclick = function() {
-            this.disabled = true;
-            captureCamera(function(camera) {
-                video.muted = true;
-                video.volume = 0;
-                video.srcObject = camera;
-                recorder = RecordRTC(camera, {
-                    type: 'video'
-                });
-                recorder.startRecording();
-                // release camera on stopRecording
-                recorder.camera = camera;
-                document.getElementById('btn-stop-recording').disabled = false;
-            });
-        };
-        document.getElementById('btn-stop-recording').onclick = function() {
-            this.disabled = true;
-            recorder.stopRecording(stopRecordingCallback);
-        };
-
-
-        function toggleHideElementById(id) {
-            var x = document.getElementById(id);
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
-
-        var botUi = new BotUI('qa-app');
-
-
-        let botSuhtlus = async() => {
-
-            await botUi.message.add({
-                content: 'Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!'
-            })
-
-            // wait till its shown
-            await botUi.message.add({ // show next message
-                delay: 500,
-                content: 'Kas otsid nõu iseendale või kellelelgi teisele?'
-            }).then(() => {
-                return botUi.action.button({
-                    delay: 500,
-                    action: [{
-                        text: 'Iseendale',
-                        value: 'iseendale'
-                    }, {
-                        text: 'Kellelegi teisele',
-                        value: 'teisele'
-                    }]
-                })
-            });
-
-
-            await botUi.message.add({
-                delay: 500,
-                content: "Olukorra selgitamiseks küsime teilt paar küsimust."
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: "Kas Sinu partner on teinud kunagi Sulle, Sinu lastele või koduloomadele haiget?"
-            }).then(() => {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        text: 'Jah',
-                        value: 'jah'
-                    }, {
-                        text: 'ei',
-                        value: 'ei'
-                    }]
-                })
-            });
-
-
-
-            await botUi.message.add({
-                delay: 500,
-                content: "Kas vägivalda on juhtunud üle 2 korra viimase aasta jooksul?"
-            }).then(function() {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        text: 'Jah',
-                        value: 'jah'
-                    }, {
-                        text: 'Ei',
-                        value: 'ei'
-                    }]
-                })
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: "Kas juhtunud olukord on põhjustanud vigastusi?"
-            }).then(function() {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        text: 'Jah',
-                        value: 'jah'
-                    }, {
-                        text: 'Ei',
-                        value: 'ei'
-                    }]
-                })
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: "Kas Sinu partner kuritarvitab alkoholi või narkootikume?"
-            }).then(function() {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        text: 'Jah',
-                        value: 'jah'
-                    }, {
-                        text: 'Ei',
-                        value: 'ei'
-                    }]
-                })
-            })
-
-            await botUi.message.add({
-                delay: 500,
-                content: 'Sinu vastuste põhjal soovitame sul rääkida kriisiabitöötajaga.'
-            });
-
-
-            await botUi.message.add({
-                delay: 500,
-                content: 'Kas soovid teha telefonikõne või jätkata siin sõnumitega?'
-            }).then(function() {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        "value": "helistada",
-                        "text": "Soovin helistada"
-                    }, {
-                        "value": "kirjutada",
-                        "text": "Soovin kirjutada"
-                    }, {
-                        "value": "ei",
-                        "text": "Ei soovi suhelda"
-                    }]
-                })
-            });
-        };
-
-        let inimSuhtlus = async() => {
-            await botUi.message.add({
-                delay: 500,
-                content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.'
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: 'Milles sinu mure seisneb?'
-            })
-
-            await botUi.action.text({
-                delay: 500,
-                action: {
-                    value: 'Mees lõi mind eile õhtul'
-                }
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: 'Kas sellest on jälgi näha?'
-            })
-
-            await botUi.action.text({
-                delay: 500,
-                action: {
-                    value: 'Jah, sinikad'
-                }
-            });
-
-            await botUi.message.add({
-                delay: 500,
-                content: 'Palun saada oma vigastusest pilt. Seda saad teha vajutades Salvesta juhtum nupule.'
-            });
-
-        };
-
-        let soovitus = async() => {
-            await botUi.message.add({
-                delay: 500,
-                content: 'Siit saad vaadata su lähedal asuvaid asutusi, kust sa saad abi.'
-            });
-        };
-
-        let koguSuhtlus = async() => {
-            await botSuhtlus();
-
-            // vaheta päist
-
-            await inimSuhtlus();
-
-            // tee pilt
-
-            await soovitus();
-        }
-
-        koguSuhtlus();
-    </script>
+    <script src="app.js"></script>
 
 </body>
 

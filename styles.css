@@ -1,0 +1,52 @@
+.blue-background {
+    background-color: #07357F;
+}
+
+.orange-text {
+    color: #F07561;
+}
+
+.white-text {
+    color: white !important;
+}
+
+h1,
+p,
+a {
+    font-family: 'Lato', sans-serif;
+}
+
+.font-size-13 {
+    font-size: 13px;
+}
+
+.font-size-30 {
+    font-size: 32px;
+}
+
+.font-size-32 {
+    font-size: 32px;
+}
+
+.rectangle1 {
+    height: 75px;
+    width: 144px;
+    border: 1px solid #F07561;
+    border-radius: 6px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+}
+
+.rectangle2 {
+    height: 75px;
+    width: 144px;
+    border-radius: 6px;
+    background-color: #FF4223;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+}
+
+.helista-meile-kohe-k {
+    height: 19px;
+    color: #FFFFFF;
+    font-family: Lato;
+    font-size: 16px;
+}
