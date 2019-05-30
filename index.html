@@ -16,10 +16,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark blue-background">
+    <nav class="navbar navbar-expand-lg navbar-dark blue-background sticky">
         <a class="navbar-brand white-text font-weight-bold" href="#">OHVRIABI</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <button class="navbar-toggler hamburger" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="animated-icon"><span></span><span></span><span></span></div>
         </button>
 
         <div class="collapse navbar-collapse  text-right" id="navbarSupportedContent">
@@ -28,13 +28,14 @@
                     <a href="#" class="nav-link m-2 menu-item nav-active white-text">Soovin nõu</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link m-2 menu-item white-text">Mul juhtus</a>
+                    <a href="#" class="nav-link m-2 menu-item white-text">Minuga juhtus</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 menu-item white-text">Info</a>
                 </li>
             </ul>
         </div>
+
     </nav>
 
     <div class="jumbotron jumbotron-fluid blue-background">
@@ -51,13 +52,72 @@
         </div>
     </div>
 
+    <div id="salvesta" class="salvesta-area">
+        <button id="salvestaNupp" class="btn salvesta-nupp" data-toggle="modal" data-target="#salvestaModal">
+            <div class="salvesta-nupp-text">
+                SALVESTA JUHTUM
+            </div>
+        </button>
+    </div>
+
     <div class="container">
-        <!-- <button id="btn-start-recording">Start Recording</button>
-        <button id="btn-stop-recording" disabled>Stop Recording</button>
-        <video id="video" controls autoplay playsinline></video> -->
+
 
         <div class="app" id="qa-app">
             <bot-ui></bot-ui>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="salvestaModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title salvesta-juhtum-header">Salvesta juhtum</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Siin saad salvestada tõendeid sinuga juhtunust. Võid siit panna audio ja video salaja salvestama ka siis kui tunned, et kohe võib midagi juhtuda.
+                    </p>
+                    <hr>
+                    <div class="custom-control custom-switch">
+                        <label class="custom-control-label" for="customSwitches">Salvesta salaja</label>
+                        <input type="checkbox" class="custom-control-input" id="customSwitches">
+                    </div>
+                    <hr>
+                    <div class="row" id="save-starters">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3 save-starter">PILT</div>
+                        <div class="col-md-3 save-starter">HELI</div>
+                        <div class="col-md-3 save-starter" id="btn-start-recording">VIDEO</div>
+                        <div class="col-md-1"></div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">Vali juhtumi kuupäev</div>
+                        <div class="col-md-6"><input type="date"></div>
+                    </div>
+                    <hr>
+
+                    <button type="button" class="btn btn-primary" id="btn-stop-recording">Lõpeta video</button>
+                    <video id="video" controls autoplay playsinline></video>
+
+                    <p>
+                        Sinu turvalisuse huvides salvestame kogutud tõendid tugikeskuse serverisse - sinu seadmesse ei jää sellest ühtegi jälge
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="salvestaNupp" class="btn salvesta-nupp" data-dismiss="modal" data-target="#salvestaModal">
+                        <div class="salvesta-nupp-text">
+                            SALVESTA JA SAADA
+                        </div>
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -65,7 +125,15 @@
     <script src="https://unpkg.com/botui/build/botui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.3/RecordRTC.js"></script>
     <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <script>
+        $('.hamburger').on('click', function() {
+            $('.animated-icon').toggleClass('open');
+        });
+    </script>
 </body>
 
 </html>
