@@ -20,20 +20,92 @@
 </head>
 
 <body>
+
+
+    <button id="btn-start-recording">Start Recording</button>
+    <button id="btn-stop-recording" disabled>Stop Recording</button>
+
+    <hr>
+    <video id="video" controls autoplay playsinline></video>
+    <hr>
     <div class="app" id="qa-app">
         <bot-ui></bot-ui>
     </div>
 
     <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
     <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/RecordRTC/5.5.3/RecordRTC.js"></script>
 
     <script>
+        var video = document.querySelector('video');
+        toggleHideElementById("video");
+
+        function captureCamera(callback) {
+            toggleHideElementById("video");
+            navigator.mediaDevices.getUserMedia({
+                audio: true,
+                video: true
+            }).then(function(camera) {
+                callback(camera);
+            }).catch(function(error) {
+                alert('Unable to capture your camera. Please check console logs.');
+                console.error(error);
+            });
+        }
+
+        function stopRecordingCallback() {
+            video.src = video.srcObject = null;
+            video.muted = false;
+            video.volume = 1;
+            video.src = URL.createObjectURL(recorder.getBlob());
+
+            recorder.camera.stop();
+            recorder.destroy();
+            recorder = null;
+            toggleHideElementById("video");
+        }
+        var recorder; // globally accessible
+        document.getElementById('btn-start-recording').onclick = function() {
+            this.disabled = true;
+            captureCamera(function(camera) {
+                video.muted = true;
+                video.volume = 0;
+                video.srcObject = camera;
+                recorder = RecordRTC(camera, {
+                    type: 'video'
+                });
+                recorder.startRecording();
+                // release camera on stopRecording
+                recorder.camera = camera;
+                document.getElementById('btn-stop-recording').disabled = false;
+            });
+        };
+        document.getElementById('btn-stop-recording').onclick = function() {
+            this.disabled = true;
+            recorder.stopRecording(stopRecordingCallback);
+        };
+
+
+        function toggleHideElementById(id) {
+            var x = document.getElementById(id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
         var botUi = new BotUI('qa-app');
 
-        botUi.message.add({
-            content: 'Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!'
-        }).then(function() { // wait till its shown
-            botUi.message.add({ // show next message
+
+        let botSuhtlus = async() => {
+
+            await botUi.message.add({
+                content: 'Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!'
+            })
+
+            // wait till its shown
+            await botUi.message.add({ // show next message
                 delay: 500,
                 content: 'Kas otsid nõu iseendale või kellelelgi teisele?'
             }).then(() => {
@@ -46,43 +118,16 @@
                         text: 'Kellelegi teisele',
                         value: 'teisele'
                     }]
-                }).then((res) => {
-                    if (res.value === "iseendale") {
-                        abiIseendale();
-                    } else {
-                        raagiBotiga();
-                    }
-                });
-
-            });
-        });
-
-        let raagiBotiga = async() => {
-            await botUi.message.add({
-                delay: 2000,
-                content: "Sa ."
+                })
             });
 
-            let response1 = await botUi.message.add({
-                delay: 2000,
-                content: "Kirjuta oma mure."
-            })
-            await botUi.action.text({
-                delay: 100,
-                action: {
-                    placeholder: ''
-                }
-            })
 
-        }
-
-        let abiIseendale = async() => {
             await botUi.message.add({
                 delay: 500,
                 content: "Olukorra selgitamiseks küsime teilt paar küsimust."
             });
 
-            let response1 = await botUi.message.add({
+            await botUi.message.add({
                 delay: 500,
                 content: "Kas Sinu partner on teinud kunagi Sulle, Sinu lastele või koduloomadele haiget?"
             }).then(() => {
@@ -96,27 +141,11 @@
                         value: 'ei'
                     }]
                 })
-            })
+            });
 
 
 
-            let response22 = await botUi.message.add({
-                delay: 500,
-                content: "Kas juhtunud olukord põhjustas vigastusi?"
-            }).then(function() {
-                return botUi.action.button({
-                    delay: 100,
-                    action: [{
-                        text: 'Jah',
-                        value: 'jah'
-                    }, {
-                        text: 'Ei',
-                        value: 'ei'
-                    }]
-                })
-            })
-
-            let response2 = await botUi.message.add({
+            await botUi.message.add({
                 delay: 500,
                 content: "Kas vägivalda on juhtunud üle 2 korra viimase aasta jooksul?"
             }).then(function() {
@@ -130,9 +159,25 @@
                         value: 'ei'
                     }]
                 })
-            })
+            });
 
-            let response3 = await botUi.message.add({
+            await botUi.message.add({
+                delay: 500,
+                content: "Kas juhtunud olukord on põhjustanud vigastusi?"
+            }).then(function() {
+                return botUi.action.button({
+                    delay: 100,
+                    action: [{
+                        text: 'Jah',
+                        value: 'jah'
+                    }, {
+                        text: 'Ei',
+                        value: 'ei'
+                    }]
+                })
+            });
+
+            await botUi.message.add({
                 delay: 500,
                 content: "Kas Sinu partner kuritarvitab alkoholi või narkootikume?"
             }).then(function() {
@@ -151,31 +196,86 @@
             await botUi.message.add({
                 delay: 500,
                 content: 'Sinu vastuste põhjal soovitame sul rääkida kriisiabitöötajaga.'
-            })
-            let response4 = await botUi.message.add({
+            });
+
+
+            await botUi.message.add({
                 delay: 500,
-                content: 'Kas ühendan?'
+                content: 'Kas soovid teha telefonikõne või jätkata siin sõnumitega?'
             }).then(function() {
                 return botUi.action.button({
                     delay: 100,
                     action: [{
-                        text: 'Jah',
-                        value: 'jah'
+                        "value": "helistada",
+                        "text": "Soovin helistada"
                     }, {
-                        text: 'ei',
-                        value: 'ei'
+                        "value": "kirjutada",
+                        "text": "Soovin kirjutada"
+                    }, {
+                        "value": "ei",
+                        "text": "Ei soovi suhelda"
                     }]
                 })
+            });
+        };
+
+        let inimSuhtlus = async() => {
+            await botUi.message.add({
+                delay: 500,
+                content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.'
+            });
+
+            await botUi.message.add({
+                delay: 500,
+                content: 'Milles sinu mure seisneb?'
             })
-            if (response4.value === "jah") {
-                minugaJuhtus();
-            } else {
-                await botUi.message.add({
-                    delay: 500,
-                    content: 'ok'
-                })
-            }
+
+            await botUi.action.text({
+                delay: 500,
+                action: {
+                    value: 'Mees lõi mind eile õhtul'
+                }
+            });
+
+            await botUi.message.add({
+                delay: 500,
+                content: 'Kas sellest on jälgi näha?'
+            })
+
+            await botUi.action.text({
+                delay: 500,
+                action: {
+                    value: 'Jah, sinikad'
+                }
+            });
+
+            await botUi.message.add({
+                delay: 500,
+                content: 'Palun saada oma vigastusest pilt. Seda saad teha vajutades Salvesta juhtum nupule.'
+            });
+
+        };
+
+        let soovitus = async() => {
+            await botUi.message.add({
+                delay: 500,
+                content: 'Siit saad vaadata su lähedal asuvaid asutusi, kust sa saad abi.'
+            });
+        };
+
+        let koguSuhtlus = async() => {
+            await botSuhtlus();
+
+            // vaheta päist
+
+            await inimSuhtlus();
+
+            // tee pilt
+
+            await soovitus();
         }
+
+        koguSuhtlus();
     </script>
 
 </body>
