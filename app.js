@@ -85,10 +85,12 @@ let botSuhtlus = async() => {
             delay: 500,
             action: [{
                 text: 'Iseendale',
-                value: 'iseendale'
+                value: 'iseendale',
+                cssClass: 'answer-bg-orange'
             }, {
                 text: 'Kellelegi teisele',
-                value: 'teisele'
+                value: 'teisele',
+                cssClass: 'answer-bg-orange'
             }]
         })
     });
@@ -107,10 +109,12 @@ let botSuhtlus = async() => {
             delay: 100,
             action: [{
                 text: 'Jah',
-                value: 'jah'
+                value: 'jah',
+                cssClass: 'answer-bg-orange'
             }, {
                 text: 'Ei',
-                value: 'ei'
+                value: 'ei',
+                cssClass: 'answer-bg-orange'
             }]
         })
     });
@@ -125,10 +129,12 @@ let botSuhtlus = async() => {
             delay: 100,
             action: [{
                 text: 'Jah',
-                value: 'jah'
+                value: 'jah',
+                cssClass: 'answer-bg-orange'
             }, {
                 text: 'Ei',
-                value: 'ei'
+                value: 'ei',
+                cssClass: 'answer-bg-orange'
             }]
         })
     });
@@ -147,10 +153,12 @@ let botSuhtlus = async() => {
             delay: 100,
             action: [{
                 text: 'Jah',
-                value: 'jah'
+                value: 'jah',
+                cssClass: 'answer-bg-orange'
             }, {
                 text: 'Ei',
-                value: 'ei'
+                value: 'ei',
+                cssClass: 'answer-bg-orange'
             }]
         })
     })
@@ -169,13 +177,16 @@ let botSuhtlus = async() => {
             delay: 100,
             action: [{
                 "value": "helistada",
-                "text": "Soovin helistada"
+                "text": "Soovin helistada",
+                "cssClass": 'answer-bg-orange'
             }, {
                 "value": "kirjutada",
-                "text": "Soovin kirjutada"
-            }, {	
+                "text": "Soovin kirjutada",
+                "cssClass": 'answer-bg-orange'
+            }, {
                 "value": "ei",
-                "text": "Soovin lugeda"
+                "text": "Soovin lugeda",
+                "cssClass": 'answer-bg-orange'
             }]
         })
     });
@@ -217,7 +228,8 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Kristel, mul on väga kahju, et sinuga nii juhtus. Leiame kindlasti viisi kuidas sind aidata.'
+        content: 'Kristel, mul on väga kahju, et sinuga nii juhtus. Leiame kindlasti viisi kuidas sind aidata.',
+        cssClass: 'light-blue-bg'
     })
 
     await botUi.message.add({
@@ -242,11 +254,26 @@ let inimSuhtlus = async() => {
 let soovitus = async() => {
     await botUi.message.add({
         delay: 500,
-        content: 'Annan sulle nüüd mõned sinu lähedal asuvad kontaktid, kust saad vajadusel kohe edasist abi.'
+        content: 'Annan sulle nüüd mõned sinu lähedal asuvad kontaktid, kust saad vajadusel kohe edasist abi.',
+        cssClass: 'light-blue-bg'
     });
 
-    var elem = document.getElementById("kriisi-info");
-    elem.classList.remove("display-none");
+    await botUi.message.add({
+        delay: 500,
+        content: '<div class="info-heading2">Turvalise öömaja saad täna siit:</div>' +
+        '<div class="info-heading3">Põltsamaa naiste turvakodu</div>' +
+        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
+        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>' +
+        '<div class="info-normal">Turvakodusse saad kaasa võtta ka oma lapsed.</div><br>' +
+        '<div class="info-heading2">Hingeabi ja psüholoogilist nõustamist saad siit:</div>' +
+        '<div class="info-heading3">Psühholoog Mart Maasikas</div>' +
+        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456 </div>' +
+        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div><br>' +
+        '<div class="info-heading2">Juriidilist abi saad siit:</div>' +
+        '<div class="info-heading3">Perevägivalla jurist Mari Vaarikas</div>' +
+        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
+        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>'
+    });
 };
 
 let koguSuhtlus = async() => {
