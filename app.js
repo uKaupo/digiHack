@@ -147,7 +147,6 @@ let botSuhtlus = async() => {
         content: "Sul läheb väga hästi, ainult üks küsimus veel."
     });
 
-
     await botUi.message.add({
         delay: 500,
         content: "Kas sinu partner kuritarvitab alkoholi või narkootikume?"
@@ -202,12 +201,15 @@ let botSuhtlus = async() => {
 let inimSuhtlus = async() => {
     await botUi.message.add({
         delay: 500,
-        content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Aitäh, et võtsid minuga ühendust. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.'
+        content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Aitäh, et võtsid minuga ühendust. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.',
+        cssClass: 'light-blue-bg'
     });
 
     await botUi.message.add({
         delay: 500,
-        content: 'Mis nimega ma võin sind kutsuda?'
+        content: 'Mis nimega ma võin sind kutsuda?',
+        cssClass: 'light-blue-bg'
+
     })
 
     await botUi.action.text({
@@ -219,7 +221,8 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Milles sinu mure seisneb?'
+        content: 'Milles sinu mure seisneb?',
+        cssClass: 'light-blue-bg'
     })
 
     await botUi.action.text({
@@ -237,7 +240,8 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Kas sellest jäi sinu kehale jälgi?'
+        content: 'Kas sellest jäi sinu kehale jälgi?',
+        cssClass: 'light-blue-bg'
     })
 
     await botUi.action.text({
@@ -249,7 +253,8 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Sul on võimalus teha oma vigastusest pilt ja see turvaliselt meile saata. Seda saad teha vajutades "Salvesta juhtum" nupule.'
+        content: 'Sul on võimalus teha oma vigastusest pilt ja see turvaliselt meile saata. Seda saad teha vajutades "Salvesta juhtum" nupule.',
+        cssClass: 'light-blue-bg'
     });
 
 };
@@ -263,6 +268,7 @@ let soovitus = async() => {
 
     await botUi.message.add({
         delay: 500,
+        cssClass: 'light-blue-bg',
         content: '<div class="info-heading2">Turvalise öömaja saad täna siit:</div>' +
             '<div class="info-heading3">Põltsamaa naiste turvakodu</div>' +
             '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
