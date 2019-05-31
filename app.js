@@ -15,9 +15,10 @@ function captureCamera(callback) {
 
 function stopRecordingCallback() {
     video.src = video.srcObject = null;
-    video.muted = false;
-    video.volume = 1;
+    video.muted = true;
+    video.volume = 0;
     video.src = URL.createObjectURL(recorder.getBlob());
+    video.pause();
 
     recorder.camera.stop();
     recorder.destroy();
@@ -44,7 +45,9 @@ document.getElementById('salvestaNupp').onclick = function() {
     if (recorder) {
         recorder.stopRecording(stopRecordingCallback);
     }
-    $('#salvestaModal').modal('hide');
+    setTimeout(() => {
+        $('#salvestaModal').modal('hide');
+    }, 1000);
 };
 
 function toggleHideElementById(id) {
@@ -261,18 +264,18 @@ let soovitus = async() => {
     await botUi.message.add({
         delay: 500,
         content: '<div class="info-heading2">Turvalise öömaja saad täna siit:</div>' +
-        '<div class="info-heading3">Põltsamaa naiste turvakodu</div>' +
-        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
-        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>' +
-        '<div class="info-normal">Turvakodusse saad kaasa võtta ka oma lapsed.</div><br>' +
-        '<div class="info-heading2">Hingeabi ja psüholoogilist nõustamist saad siit:</div>' +
-        '<div class="info-heading3">Psühholoog Mart Maasikas</div>' +
-        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456 </div>' +
-        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div><br>' +
-        '<div class="info-heading2">Juriidilist abi saad siit:</div>' +
-        '<div class="info-heading3">Perevägivalla jurist Mari Vaarikas</div>' +
-        '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
-        '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>'
+            '<div class="info-heading3">Põltsamaa naiste turvakodu</div>' +
+            '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
+            '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>' +
+            '<div class="info-normal">Turvakodusse saad kaasa võtta ka oma lapsed.</div><br>' +
+            '<div class="info-heading2">Hingeabi ja psüholoogilist nõustamist saad siit:</div>' +
+            '<div class="info-heading3">Psühholoog Mart Maasikas</div>' +
+            '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456 </div>' +
+            '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div><br>' +
+            '<div class="info-heading2">Juriidilist abi saad siit:</div>' +
+            '<div class="info-heading3">Perevägivalla jurist Mari Vaarikas</div>' +
+            '<div class="info-contact"><img src="./icons/phone.svg" width="12" height="12" class="margin-right-3" />123 456</div>' +
+            '<div class="info-contact"><img src="./icons/mail.svg" width="12" height="12" class="margin-right-3" />poltsamaaturvakodu@gmail.com</div>'
     });
 };
 
