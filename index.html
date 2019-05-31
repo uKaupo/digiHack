@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ohvriabi</title>
+    <title>Ellujääja</title>
     <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
     </link>
     <link rel="stylesheet" href="./botUi-theme.css">
@@ -16,8 +16,21 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark blue-background sticky">
-        <a class="navbar-brand white-text font-weight-bold" href="#">OHVRIABI</a>
+    <nav class="navbar navbar-expand-lg navbar-dark blue-background sticky-top">
+        <a class="navbar-brand white-text font-weight-bold navv" href="#">ELLUJÄÄJA</a>
+
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="orange-text font-weight-bold" href="#"><img src="./icons/phone.svg" width="19" height="19" />116 006</a>
+            </li>
+            <li class="nav-item">
+                <a class="white-text margin-l-f-5">või</a>
+            </li>
+            <li class="nav-item">
+                <a class="darker-orange-text font-weight-bold" href="#">112</a>
+            </li>
+        </ul>
+
         <button class="navbar-toggler hamburger" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <div class="animated-icon"><span></span><span></span><span></span></div>
         </button>
@@ -25,7 +38,7 @@
         <div class="collapse navbar-collapse  text-right" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item white-text">
-                    <a href="#" class="nav-link m-2 menu-item nav-active white-text">Soovin nõu</a>
+                    <a href="#" class="nav-link m-2 menu-item nav-active white-text">Olukorra hindamine</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link m-2 menu-item white-text">Minuga juhtus</a>
@@ -46,13 +59,14 @@
                 <a class="btn rectangle1" href="#" role="button"><span
                         class="white-text font-size-13">KRIISITELEFON</span> <span class="orange-text font-size-32">116
                         006</span></a>
-                <a class="btn rectangle2 white-text" href="#" role="button"><span class="font-size-13">OLEN OHUS!</span>
+                <a class="btn rectangle2 white-text margin-left-17" href="#" role="button"><span
+                        class="font-size-13">OLEN OHUS!</span>
                     <span class="font-size-30">112</span></a>
             </div>
         </div>
     </div>
 
-    <div id="salvesta" class="salvesta-area">
+    <div id="salvesta" class="salvesta-area sticky-top display-none">
         <button id="salvestaNupp" class="btn salvesta-nupp" data-toggle="modal" data-target="#salvestaModal">
             <div class="salvesta-nupp-text">
                 SALVESTA JUHTUM
@@ -66,6 +80,26 @@
         <div class="app" id="qa-app">
             <bot-ui></bot-ui>
         </div>
+
+        <div class="container display-none" id="kriisi-info">
+            <!-- <span class="info-heading1">Sind abistavate asutuste info</span>
+			<div class="info-normal">Ohvriabi kriisitelefonilt <span class="font-weight-bold">116006</span> pakutakse Sulle ööpäevaringset kriisinõustamist ja jagatakse informatsiooni ohvri õigustest ja abistavatest süsteemidest. Lisaks tagatakse Sulle, et saadud informatsioon jõuaks vastavatele abiandvatele spetsialistidele.</div> -->
+            <div class="info-heading2">Turvalise öömaja saad täna siit:</div>
+            <div class="info-heading3">Põltsamaa naiste turvakodu</div>
+            <div class="info-contact"><img src="./icons/phone.svg" width="19" height="19" class="margin-right-5" />123 456
+                <p><img src="./icons/mail.svg" width="19" height="19" class="margin-right-5" />poltsamaaturvakodu@gmail.com</div>
+            <div class="info-normal">Turvakodusse saad kaasa võtta ka oma lapsed.</div>
+            <div class="info-heading2">Hingeabi ja psüholoogilist nõustamist saad siit:</div>
+            <div class="info-heading3">Psühholoog Mart Maasikas</div>
+            <div class="info-contact"><img src="./icons/phone.svg" width="19" height="19" class="margin-right-5" />123 456
+                <p><img src="./icons/mail.svg" width="19" height="19" class="margin-right-5" />poltsamaaturvakodu@gmail.com</div>
+            <div class="info-heading2">Juriidilist abi saad siit:</div>
+            <div class="info-heading3">Perevägivalla jurist Mari Vaarikas</div>
+            <div class="info-contact"><img src="./icons/phone.svg" width="19" height="19" class="margin-right-5" />123 456
+                <p><img src="./icons/mail.svg" width="19" height="19" class="margin-right-5" />poltsamaaturvakodu@gmail.com</div>
+
+        </div>
+
     </div>
 
     <!-- Modal -->
@@ -82,28 +116,26 @@
                     <p>
                         Siin saad salvestada tõendeid sinuga juhtunust. Võid siit panna audio ja video salaja salvestama ka siis kui tunned, et kohe võib midagi juhtuda.
                     </p>
-                    <hr>
+                    <!-- <hr>
                     <div class="custom-control custom-switch">
                         <label class="custom-control-label" for="customSwitches">Salvesta salaja</label>
                         <input type="checkbox" class="custom-control-input" id="customSwitches">
-                    </div>
+                    </div> -->
                     <hr>
                     <div class="row" id="save-starters">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-3 save-starter">PILT</div>
-                        <div class="col-md-3 save-starter">HELI</div>
-                        <div class="col-md-3 save-starter" id="btn-start-recording">VIDEO</div>
-                        <div class="col-md-1"></div>
+                        <div class="col-sm-4 save-starter" id="btn-start-picture">PILT</div>
+                        <div class="col-sm-4 save-starter">HELI</div>
+                        <div class="col-sm-4 save-starter" id="btn-start-recording">VIDEO</div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-6">Vali juhtumi kuupäev</div>
-                        <div class="col-md-6"><input type="date"></div>
+                        <div class="col-md-6" id="date">30.05.2019</div>
                     </div>
                     <hr>
 
                     <button type="button" class="btn btn-primary" id="btn-stop-recording">Lõpeta video</button>
-                    <video id="video" controls autoplay playsinline></video>
+                    <video id="video" width="100%" height="auto" controls autoplay playsinline></video>
 
                     <p>
                         Sinu turvalisuse huvides salvestame kogutud tõendid tugikeskuse serverisse - sinu seadmesse ei jää sellest ühtegi jälge

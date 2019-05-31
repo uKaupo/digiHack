@@ -1,9 +1,9 @@
 var video = document.querySelector('video');
-toggleHideElementById("video");
+// toggleHideElementById("video");
 toggleHideElementById("btn-stop-recording");
 
 function captureCamera(callback) {
-    toggleHideElementById("video");
+    // toggleHideElementById("video");
     navigator.mediaDevices.getUserMedia({
         audio: true,
         video: true
@@ -46,6 +46,7 @@ document.getElementById('btn-start-recording').onclick = function() {
     });
     toggleHideElementById("btn-stop-recording");
 };
+
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
     recorder.stopRecording(stopRecordingCallback);
@@ -89,12 +90,12 @@ let botSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: "Olukorra selgitamiseks küsime teilt paar küsimust."
+        content: "Olukorra selgitamiseks küsime sinult mõned küsimused."
     });
 
     await botUi.message.add({
         delay: 500,
-        content: "Kas Sinu partner on teinud kunagi Sulle, Sinu lastele või koduloomadele haiget?"
+        content: "Kas Sinu partner on teinud kunagi sulle, sinu lastele või koduloomadele haiget?"
     }).then(() => {
         return botUi.action.button({
             delay: 100,
@@ -102,7 +103,7 @@ let botSuhtlus = async() => {
                 text: 'Jah',
                 value: 'jah'
             }, {
-                text: 'ei',
+                text: 'Ei',
                 value: 'ei'
             }]
         })
@@ -126,25 +127,10 @@ let botSuhtlus = async() => {
         })
     });
 
-    await botUi.message.add({
-        delay: 500,
-        content: "Kas juhtunud olukord on põhjustanud vigastusi?"
-    }).then(function() {
-        return botUi.action.button({
-            delay: 100,
-            action: [{
-                text: 'Jah',
-                value: 'jah'
-            }, {
-                text: 'Ei',
-                value: 'ei'
-            }]
-        })
-    });
 
     await botUi.message.add({
         delay: 500,
-        content: "Kas Sinu partner kuritarvitab alkoholi või narkootikume?"
+        content: "Kas sinu partner kuritarvitab alkoholi või narkootikume?"
     }).then(function() {
         return botUi.action.button({
             delay: 100,
@@ -178,10 +164,14 @@ let botSuhtlus = async() => {
                 "text": "Soovin kirjutada"
             }, {
                 "value": "ei",
-                "text": "Ei soovi suhelda"
+                "text": "Soovin lugeda"
             }]
         })
     });
+
+    // nupp tuleb nähtavale
+    var elem = document.getElementById("salvesta");
+    elem.classList.remove("display-none");
 };
 
 let inimSuhtlus = async() => {
@@ -226,6 +216,9 @@ let soovitus = async() => {
         delay: 500,
         content: 'Siit saad vaadata su lähedal asuvaid võimalusi, kust sa saad abi.'
     });
+
+    var elem = document.getElementById("kriisi-info");
+    elem.classList.remove("display-none");
 };
 
 let koguSuhtlus = async() => {
