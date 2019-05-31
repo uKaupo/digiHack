@@ -39,8 +39,7 @@ a {
 }
 
 .salvesta-nupp {
-    height: 50px;
-    width: 335px;
+    padding: 1em;
     border-radius: 10px;
     background-color: #F07561;
     box-shadow: 0 6px 15px 0 rgba(179, 37, 37, 0.3);
@@ -68,13 +67,22 @@ a {
     text-align: center;
 }
 
+#date {
+    color: #F07561;
+    text-align: right;
+}
+
 .save-starter {
     font-family: Lato;
 }
 
+.salvesta-icons {
+    margin-left: 1em;
+}
+
 .save-starter:hover {
     cursor: pointer;
-    color: #F07561
+    color: #F07561;
 }
 
 .rectangle1 {
@@ -98,11 +106,6 @@ a {
     color: #FFFFFF;
     font-family: Lato;
     font-size: 16px;
-}
-
-#video {
-    width: 400;
-    height: 300;
 }
 
 .animated-icon {

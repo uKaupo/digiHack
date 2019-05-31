@@ -1,9 +1,7 @@
 var video = document.querySelector('video');
-// toggleHideElementById("video");
-toggleHideElementById("btn-stop-recording");
+
 
 function captureCamera(callback) {
-    // toggleHideElementById("video");
     navigator.mediaDevices.getUserMedia({
         audio: true,
         video: true
@@ -24,7 +22,6 @@ function stopRecordingCallback() {
     recorder.camera.stop();
     recorder.destroy();
     recorder = null;
-    toggleHideElementById("btn-stop-recording");
 }
 var recorder; // globally accessible
 document.getElementById('btn-start-recording').onclick = function() {
@@ -34,22 +31,20 @@ document.getElementById('btn-start-recording').onclick = function() {
         video.volume = 0;
         video.srcObject = camera;
         recorder = RecordRTC(camera, {
-            type: 'video',
-            canvas: {
-                width: 400,
-                height: 240
-            }
+            type: 'video'
         });
         recorder.startRecording();
         // release camera on stopRecording
         recorder.camera = camera;
     });
-    toggleHideElementById("btn-stop-recording");
 };
 
-document.getElementById('btn-stop-recording').onclick = function() {
+document.getElementById('salvestaNupp').onclick = function() {
     this.disabled = true;
-    recorder.stopRecording(stopRecordingCallback);
+    if (recorder) {
+        recorder.stopRecording(stopRecordingCallback);
+    }
+    $('#salvestaModal').modal('hide');
 };
 
 function toggleHideElementById(id) {
@@ -67,8 +62,19 @@ var botUi = new BotUI('qa-app');
 let botSuhtlus = async() => {
 
     await botUi.message.add({
-        content: 'Tere! mina olen ohvriabi robot ja olen siin selleks, et aidata sul sinu probleemist aru saada ja sind õigete sammudeni suunata!'
-    })
+        content: 'Tere! Sa ei ole üksi. Kas sa oled nõus, et võtame sinuga ühendust, et saaksime pakkuda igakülgset abi?'
+    }).then(() => {
+        return botUi.action.button({
+            delay: 500,
+            action: [{
+                text: 'Jah, olen',
+                value: 'jah'
+            }, {
+                text: 'Ei, aitäh',
+                value: 'ei'
+            }]
+        })
+    });
 
     // wait till its shown
     await botUi.message.add({ // show next message
@@ -90,7 +96,7 @@ let botSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: "Olukorra selgitamiseks küsime sinult mõned küsimused."
+        content: "Olukorra hindamiseks küsime mõned küsimused, pärast mida suuname sind vajadusel edasi vestlema otse tugiisikuga. Vastates ära muretse - siin ei ole õigeid ja valesid vastuseid."
     });
 
     await botUi.message.add({
@@ -113,7 +119,7 @@ let botSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: "Kas vägivalda on juhtunud üle 2 korra viimase aasta jooksul?"
+        content: "Kas vägivalda on juhtunud vähemalt 2 korda viimase aasta jooksul?"
     }).then(function() {
         return botUi.action.button({
             delay: 100,
@@ -125,6 +131,11 @@ let botSuhtlus = async() => {
                 value: 'ei'
             }]
         })
+    });
+
+    await botUi.message.add({
+        delay: 500,
+        content: "Sul läheb väga hästi, ainult üks küsimus veel."
     });
 
 
@@ -146,13 +157,13 @@ let botSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Sinu vastuste põhjal soovitame sul rääkida kriisiabitöötajaga.'
+        content: 'Aitäh, et vastasid küsimustele! Sinu olukord tundub piisavalt tõsine - soovitame sul kindlasti rääkida otse tugiisikuga.'
     });
 
 
     await botUi.message.add({
         delay: 500,
-        content: 'Kas soovid teha telefonikõne või jätkata siin sõnumitega?'
+        content: 'Saame sind nüüd otse ühendada. Kas soovid teha telefonikõne või jätkata siin kirjutades?'
     }).then(function() {
         return botUi.action.button({
             delay: 100,
@@ -162,7 +173,7 @@ let botSuhtlus = async() => {
             }, {
                 "value": "kirjutada",
                 "text": "Soovin kirjutada"
-            }, {
+            }, {	
                 "value": "ei",
                 "text": "Soovin lugeda"
             }]
@@ -177,7 +188,19 @@ let botSuhtlus = async() => {
 let inimSuhtlus = async() => {
     await botUi.message.add({
         delay: 500,
-        content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.'
+        content: 'Tere! Mina olen Marianne, oled nüüd otse ühenduses ohvriabi tugiisikuga. Aitäh, et võtsid minuga ühendust. Lugesin läbi sinu vastused ja püüan nüüd sind edasi aidata.'
+    });
+
+    await botUi.message.add({
+        delay: 500,
+        content: 'Mis nimega ma võin sind kutsuda?'
+    })
+
+    await botUi.action.text({
+        delay: 500,
+        action: {
+            value: 'Kristel'
+        }
     });
 
     await botUi.message.add({
@@ -194,7 +217,12 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Kas sellest on jälgi näha?'
+        content: 'Kristel, mul on väga kahju, et sinuga nii juhtus. Leiame kindlasti viisi kuidas sind aidata.'
+    })
+
+    await botUi.message.add({
+        delay: 500,
+        content: 'Kas sellest jäi sinu kehale jälgi?'
     })
 
     await botUi.action.text({
@@ -206,7 +234,7 @@ let inimSuhtlus = async() => {
 
     await botUi.message.add({
         delay: 500,
-        content: 'Palun saada oma vigastusest pilt. Seda saad teha vajutades Salvesta juhtum nupule.'
+        content: 'Sul on võimalus teha oma vigastusest pilt ja see turvaliselt meile saata. Seda saad teha vajutades "Salvesta juhtum" nupule.'
     });
 
 };
@@ -214,7 +242,7 @@ let inimSuhtlus = async() => {
 let soovitus = async() => {
     await botUi.message.add({
         delay: 500,
-        content: 'Siit saad vaadata su lähedal asuvaid võimalusi, kust sa saad abi.'
+        content: 'Annan sulle nüüd mõned sinu lähedal asuvad kontaktid, kust saad vajadusel kohe edasist abi.'
     });
 
     var elem = document.getElementById("kriisi-info");

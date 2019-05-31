@@ -67,7 +67,7 @@
     </div>
 
     <div id="salvesta" class="salvesta-area sticky-top display-none">
-        <button id="salvestaNupp" class="btn salvesta-nupp" data-toggle="modal" data-target="#salvestaModal">
+        <button class="btn salvesta-nupp" data-toggle="modal" data-target="#salvestaModal">
             <div class="salvesta-nupp-text">
                 SALVESTA JUHTUM
             </div>
@@ -123,18 +123,23 @@
                     </div> -->
                     <hr>
                     <div class="row" id="save-starters">
-                        <div class="col-sm-4 save-starter" id="btn-start-picture">PILT</div>
-                        <div class="col-sm-4 save-starter">HELI</div>
-                        <div class="col-sm-4 save-starter" id="btn-start-recording">VIDEO</div>
+                        <div class="col-sm-4 save-starter">
+                            <img src="./icons/pic.svg" class="salvesta-icons" /> PILT
+                        </div>
+                        <div class="col-sm-4 save-starter">
+                            <img src="./icons/mic.svg" class="salvesta-icons" /> HELI
+                        </div>
+                        <div class="col-sm-4 save-starter" id="btn-start-recording">
+                            <img src="./icons/cam.svg" class="salvesta-icons" /> VIDEO
+                        </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <div class="col-md-6">Vali juhtumi kuupäev</div>
-                        <div class="col-md-6" id="date">30.05.2019</div>
+                        <div class="col-sm-6">Vali juhtumi kuupäev</div>
+                        <div class="col-sm-6" id="date">30.05.2019</div>
                     </div>
                     <hr>
 
-                    <button type="button" class="btn btn-primary" id="btn-stop-recording">Lõpeta video</button>
                     <video id="video" width="100%" height="auto" controls autoplay playsinline></video>
 
                     <p>
@@ -152,6 +157,7 @@
 
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
     <script src="https://unpkg.com/botui/build/botui.min.js"></script>
