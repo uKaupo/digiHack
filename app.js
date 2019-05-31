@@ -71,10 +71,12 @@ let botSuhtlus = async() => {
             delay: 500,
             action: [{
                 text: 'Jah, olen',
-                value: 'jah'
+                value: 'jah',
+                cssClass: 'answer-bg-orange'
             }, {
                 text: 'Ei, aitäh',
-                value: 'ei'
+                value: 'ei',
+                cssClass: 'answer-bg-orange'
             }]
         })
     });
